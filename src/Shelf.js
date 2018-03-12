@@ -14,7 +14,7 @@ const Shelf = props => {
             <Book
               key={book.id}
               author={book.author}
-              cover={book.cover}
+              cover={book.imageLinks.smallThumbnail}
               title={book.title}
             />
           )}
