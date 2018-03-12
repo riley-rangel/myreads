@@ -96,6 +96,7 @@ export default class BooksApp extends React.Component {
     showSearchPage: false
   }
 
+  openSearch = () => this.setState({ showSearchPage: true })
   closeSearch = () => this.setState({ showSearchPage: false })
 
   render() {
@@ -103,7 +104,7 @@ export default class BooksApp extends React.Component {
       <div className="app">
         {this.state.showSearchPage
           ? <Search onClose={this.closeSearch} />
-          : <Bookcase books={books} />
+          : <Bookcase onSearch={this.openSearch} books={books} />
         }
       </div>
     )

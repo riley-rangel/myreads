@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Shelf from './Shelf'
-import Book from './Book'
 
 export default class Bookcase extends Component {
   state = {
@@ -38,7 +37,7 @@ export default class Bookcase extends Component {
           </div>
         </div>
         <div className="open-search">
-          <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+          <a onClick={this.props.onSearch}>Add a book</a>
         </div>
       </div>
     )
