@@ -2,7 +2,7 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Search from './Search'
-import Shelf from './Shelf'
+import Bookcase from './Bookcase'
 
 const books = [
   {
@@ -85,7 +85,7 @@ const books = [
   }
 ]
 
-class BooksApp extends React.Component {
+export default class BooksApp extends React.Component {
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -93,20 +93,6 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    shelves: [
-      {
-        id: 'currentlyReading',
-        title: 'Currently Reading'
-      },
-      {
-        id: 'wantToRead',
-        title: 'Want to Read'
-      },
-      {
-        id: 'read',
-        title: 'Read'
-      }
-    ],
     showSearchPage: false
   }
 
@@ -117,30 +103,9 @@ class BooksApp extends React.Component {
       <div className="app">
         {this.state.showSearchPage
           ? <Search onClose={this.closeSearch} />
-          : (
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                <div>
-                  {this.state.shelves.map(shelf => {
-                    return <Shelf
-                      key={shelf.id}
-                      title={shelf.title}
-                      books={books.filter(book => book.shelf === shelf.id)}
-                    />
-                  })}
-                </div>
-              </div>
-              <div className="open-search">
-                <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-              </div>
-            </div>
-          )}
+          : <Bookcase books={books} />
+        }
       </div>
     )
   }
 }
-
-export default BooksApp
