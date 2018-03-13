@@ -33,6 +33,7 @@ export default class Bookcase extends Component {
                 key={shelf.id}
                 title={shelf.title}
                 books={this.props.books.filter(book => book.shelf === shelf.id)}
+                onSelect={this.props.onSelect}
               />
             })}
           </div>

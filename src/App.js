@@ -15,6 +15,20 @@ export default class BooksApp extends Component {
       .then(books => this.setState({ books }))
       .catch(err => console.error(err))
   }
+  updateBookStatus = (book, shelf) => {
+    this.setState(state => ({
+      books: [
+        ...state.books.filter(b => b.id !== book.id),
+        {
+          ...state.books.find(b => b.id === book.id),
+          ...{ shelf }
+        }
+      ]
+    }))
+
+    BooksAPI.update(book, shelf)
+      .catch(err => console.error(err))
+  }
 
   render() {
     return (
@@ -23,7 +37,7 @@ export default class BooksApp extends Component {
           <Search />
         )}/>
         <Route exact path='/' render={() => (
-          <Bookcase books={this.state.books} />
+          <Bookcase books={this.state.books} onSelect={this.updateBookStatus}/>
         )}/>
       </div>
     )
