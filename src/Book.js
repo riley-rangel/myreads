@@ -5,7 +5,18 @@ export default class Book extends Component {
   state = {
     value: 'unselected'
   }
-
+  
+  getThumbnail = imageLinks => {
+    const fallback = ''
+    return imageLinks
+      ? imageLinks.smallThumbnail ? `url(${imageLinks.smallThumbnail})` : fallback
+      : fallback
+  }
+  getAuthors = authors => {
+    return authors && Array.isArray(authors) && authors.length
+      ? authors[0]
+      : 'No Author Available'
+  }
   handleChange = (book, value) => {
     this.setState({ value })
     this.props.onSelect(book, value)
@@ -20,7 +31,7 @@ export default class Book extends Component {
             <div className="book-cover" style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${book.imageLinks.smallThumbnail})`
+              backgroundImage: this.getThumbnail(book.imageLinks)
             }}></div>
             <div className="book-shelf-changer">
               <select value={this.state.value} onChange={({ target }) => this.handleChange(book, target.value)}>
@@ -33,7 +44,7 @@ export default class Book extends Component {
             </div>
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.author}</div>
+          <div className="book-authors">{this.getAuthors(book.authors)}</div>
         </div>
       </li>
     )
