@@ -6,12 +6,12 @@ export default class Book extends Component {
     value: 'unselected'
   }
 
-  handleChange = value => {
+  handleChange = (book, value) => {
     this.setState({ value })
-    this.props.onSelect({id: this.props.id}, value)
+    this.props.onSelect(book, value)
   }
   render() {
-    const { author, cover, title } = this.props
+    const { book } = this.props
 
     return (
       <li>
@@ -20,10 +20,10 @@ export default class Book extends Component {
             <div className="book-cover" style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${cover})`
+              backgroundImage: `url(${book.imageLinks.smallThumbnail})`
             }}></div>
             <div className="book-shelf-changer">
-              <select value={this.state.value} onChange={({ target }) => this.handleChange(target.value)}>
+              <select value={this.state.value} onChange={({ target }) => this.handleChange(book, target.value)}>
                 <option value="unselected" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
@@ -32,8 +32,8 @@ export default class Book extends Component {
               </select>
             </div>
           </div>
-          <div className="book-title">{title}</div>
-          <div className="book-authors">{author}</div>
+          <div className="book-title">{book.title}</div>
+          <div className="book-authors">{book.author}</div>
         </div>
       </li>
     )

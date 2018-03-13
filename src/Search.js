@@ -24,7 +24,6 @@ export default class Search extends Component {
       })
       .catch(err => console.error(err))
   }
-
   render () {
     return (
       <div className="search-books">
@@ -46,10 +45,8 @@ export default class Search extends Component {
             {this.state.books.map(book => {
               return <Book
                 key={book.id}
-                id={book.id}
-                author={book.author}
-                cover={book.imageLinks.smallThumbnail}
-                title={book.title}
+                book={book}
+                onSelect={this.props.onSelect}
               />
             })}
           </ol>
