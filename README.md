@@ -6,6 +6,7 @@ This is the project for the final assessment of Udacity's React Fundamentals cou
 
 To get the project up and running:
 
-* Run: `git clone https://github.com/riley-rangel/myreads.git`
-* Then: `npm install`
-* Last: `npm start`
+* First run: `git clone https://github.com/riley-rangel/myreads.git`
+* Move into the new `myreads` directory
+* Then run: `npm install`
+* Last run: `npm start`
