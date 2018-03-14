@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 
 export default class Book extends Component {
-
   state = {
-    value: 'none'
+    value: this.props.book.shelf || 'none'
   }
-  
+
   getThumbnail = imageLinks => {
-    const fallback = ''
     return imageLinks
-      ? imageLinks.smallThumbnail ? `url(${imageLinks.smallThumbnail})` : fallback
-      : fallback
+      ? imageLinks.smallThumbnail ? `url(${imageLinks.smallThumbnail})` : ''
+      : ''
   }
   getAuthors = authors => {
     return authors && Array.isArray(authors) && authors.length

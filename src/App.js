@@ -7,7 +7,9 @@ import Bookcase from './Bookcase'
 
 export default class BooksApp extends Component {
   state = {
-    books: []
+    books: [],
+    query: '',
+    results: []
   }
 
   componentDidMount() {
@@ -20,7 +22,7 @@ export default class BooksApp extends Component {
       books: [
         ...state.books.filter(b => b.id !== book.id),
         {
-          ...state.books.find(b => b.id === book.id),
+          ...book,
           ...{ shelf }
         }
       ]
@@ -29,14 +31,37 @@ export default class BooksApp extends Component {
     BooksAPI.update(book, shelf)
       .catch(err => console.error(err))
   }
+  updateQuery = query => {
+    this.setState({ query })
+
+    if (!query)
+      return this.setState({ results: [] })
+
+    BooksAPI.search(query)
+      .then(books => {
+        if (!Array.isArray(books))
+          return this.setState({ results: [] })
+        
+        this.setState(state => ({
+          results: books.map(book => {
+            return state.books.find(b => b.id === book.id)
+              ? {...state.books.find(b => b.id === book.id)}
+              : book
+          })
+        }))
+      })
+      .catch(err => console.error(err))
+  }
   render() {
     return (
       <div className="app">
         <Route path='/search' render={({ history }) => (
-          <Search onSelect={(book, shelf) => {
-            this.updateBookShelf(book, shelf)
-            history.push('/')
-          }} />
+          <Search
+            books={this.state.results}
+            onSearch={this.updateQuery}
+            onSelect={this.updateBookShelf}
+            query={this.state.query}
+          />
         )}/>
         <Route exact path='/' render={() => (
           <Bookcase books={this.state.books} onSelect={this.updateBookShelf} />
