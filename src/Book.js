@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class Book extends Component {
 
   state = {
-    value: 'unselected'
+    value: 'none'
   }
   
   getThumbnail = imageLinks => {
