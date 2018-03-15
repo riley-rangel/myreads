@@ -12,7 +12,7 @@ export default class Book extends Component {
   }
   getAuthors = authors => {
     return authors && Array.isArray(authors) && authors.length
-      ? authors[0]
+      ? authors.join(', ')
       : 'No Author Available'
   }
   handleChange = (book, value) => {

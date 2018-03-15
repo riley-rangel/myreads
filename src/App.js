@@ -39,9 +39,11 @@ export default class BooksApp extends Component {
 
     BooksAPI.search(query)
       .then(books => {
+        if (query !== this.state.query) return
+
         if (!Array.isArray(books))
           return this.setState({ results: [] })
-        
+
         this.setState(state => ({
           results: books.map(book => {
             return state.books.find(b => b.id === book.id)
